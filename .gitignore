@@ -1,0 +1,8 @@
+*.prefs
+*.class
+*.classpath
+target
+*.jar
+.project
+*.log
+*.error
