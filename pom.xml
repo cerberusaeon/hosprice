@@ -190,12 +190,12 @@
 			</dependency>
 
 
-		<!-- 	<dependency>
+		 	<dependency>
 				<groupId>mysql</groupId>
 				<artifactId>mysql-connector-java</artifactId>
 				<version>5.1.24</version>
-			</dependency> -->
-
+			</dependency> 
+			<!-- sometimes mvn can't pull down jar, not sure why http://mvnrepository.com/artifact/mysql/mysql-connector-java/5.1.24 -->
 			<!-- HSQLDB & Hibernate -->
 			<dependency>
 				<groupId>org.hsqldb</groupId>

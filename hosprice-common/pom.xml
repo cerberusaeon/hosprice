@@ -104,10 +104,10 @@
 		</dependency>
 
 
-		<!-- <dependency>
+		 <dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-		</dependency> -->
+		</dependency> 
 
 		<!-- javax.inject SUN implementation but could use javax.inject -->
 		<!-- <dependency> <groupId>javax</groupId> <artifactId>javaee-api</artifactId> 
