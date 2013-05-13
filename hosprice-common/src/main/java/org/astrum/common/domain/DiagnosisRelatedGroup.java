@@ -3,6 +3,7 @@ package org.astrum.common.domain;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,10 +20,11 @@ public class DiagnosisRelatedGroup implements java.io.Serializable {
 	private static final long serialVersionUID = -2183989461061672911L;
 	private Long diagnosisRelatedGroupId;
 	private String type;
-	private List<Provider> providers;
+	private Long providerId;
 	private BigDecimal totalDischarge;
 	private BigDecimal averageCoveredCharges;
 	private BigDecimal averageTotalPayments;
+	private List<Provider> providers;
 	
 	
 	@Id
@@ -30,6 +32,7 @@ public class DiagnosisRelatedGroup implements java.io.Serializable {
 	public Long getDiagnosisRelatedGroupId() {
 		return diagnosisRelatedGroupId;
 	}
+	@Column(name="DRM_TYPE")
 	public String getType() {
 		return type;
 	}
@@ -63,6 +66,12 @@ public class DiagnosisRelatedGroup implements java.io.Serializable {
 	}
 	public void setAverageTotalPayments(BigDecimal averageTotalPayments) {
 		this.averageTotalPayments = averageTotalPayments;
+	}
+	public Long getProviderId() {
+		return providerId;
+	}
+	public void setProviderId(Long providerId) {
+		this.providerId = providerId;
 	}
 	@Override
 	public int hashCode() {

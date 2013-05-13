@@ -20,3 +20,10 @@ INSERT into PROVIDER (providerId, name, legacyId, addressId, regionId) values (4
 INSERT into PROVIDER (providerId, name, legacyId, addressId, regionId) values (403, 'NANTICOKE MEMORIAL HOSPITAL', 80006,203, 102 );
 
 
+INSERT into DIAGNOSIS_RELATED_GROUP (diagnosisRelatedGroupId, DRM_TYPE, providerId, totalDischarge, averageCoveredCharges, averageTotalPayments ) values (501, 'EXTRACRANIAL PROCEDURES W/O CC/MCC', 401, 44324.43, 342423, 5452435);
+
+INSERT into DIAGNOSIS_RELATED_GROUP (diagnosisRelatedGroupId, DRM_TYPE, providerId, totalDischarge, averageCoveredCharges, averageTotalPayments ) values (502, 'DEGENERATIVE NERVOUS SYSTEM DISORDERS W/O MCC', 401, 44324.43, 11111.25, 43423);
+
+INSERT into DIAGNOSIS_RELATED_GROUP (diagnosisRelatedGroupId, DRM_TYPE, providerId, totalDischarge, averageCoveredCharges, averageTotalPayments ) values (503, 'EXTRACRANIAL PROCEDURES W/O CC/MCC', 402, 44324.43, 55885.25, 5452435);
+
+INSERT into DIAGNOSIS_RELATED_GROUP (diagnosisRelatedGroupId, DRM_TYPE, providerId, totalDischarge, averageCoveredCharges, averageTotalPayments ) values (504, 'DEGENERATIVE NERVOUS SYSTEM DISORDERS W/O MCC', 403, 44324.43, 4444.25, 43423);
