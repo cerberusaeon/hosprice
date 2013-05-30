@@ -51,7 +51,7 @@ public class UserRestServiceTest {
 		logger.info(ps.toString());
 		assertTrue(ps.size() > 0);
 		
-		Response r = providerRestService.getProviderByZipcode("36301");
+		Response r = providerRestService.getProviderByZipcode("36301", null, null, null, null);
 		logger.info(r.getEntity().toString());
 	}
 

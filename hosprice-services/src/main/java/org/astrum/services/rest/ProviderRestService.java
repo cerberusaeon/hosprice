@@ -4,10 +4,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import org.astrum.common.domain.Provider;
@@ -23,10 +22,10 @@ public class ProviderRestService {
 	ProviderService providerService;
 	
 	
-	@Path("/zipcode/{zipcode}")
+	@Path("/hospital")
 	@Produces("application/json")
 	@GET
-	public Response getProviderByZipcode(@PathParam("zipcode") String zipcode){
+	public Response getProviderByZipcode(@QueryParam("zipcode") String zipcode, @QueryParam("state") String state, @QueryParam("city") String city, @QueryParam("hospital") String hospital, @QueryParam("diagnosis") String diagnosis ){
 		List<ProviderModel> pms = null;
 		try{
 			List <Provider> ps = providerService.getProvidersByZipcode(zipcode);
