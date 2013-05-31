@@ -54,6 +54,11 @@ font-family: calibri;
 .sixCaps{
 font-family: 'Six Caps', sans-serif;
 }
+
+#results-container button {
+	float: right;
+	margin: 10px;
+}
 </style>
 <link href='http://fonts.googleapis.com/css?family=Gentium+Basic|Signika|Forum|Arvo:700|Six+Caps' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="../../styles/normalize.css">
@@ -172,6 +177,7 @@ font-family: 'Six Caps', sans-serif;
 	<script type="text/template" id="template-recommendation">
 			<h3>Recommendation - <%= name %></h3>
 			<p>Some stuff here</p>
+			<button class="delete">Delete</button>
 	</script>
 	
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>

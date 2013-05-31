@@ -146,14 +146,23 @@ $(document).ready(function(){
 		    initialize: function() {
 				    //this.model.bind("change", this.render, this);
 				    //this.render();
-				  },
+			},
 
 			render: function() {
-				  console.log(this.model.attributes);
-				  var templ = _.template(this.template);
-				  this.$el.html(templ(this.model.toJSON()));
-				  return this;
-				  }
+						  console.log(this.model.attributes);
+						  var templ = _.template(this.template);
+						  this.$el.html(templ(this.model.toJSON()));
+						  return this;
+			},
+			deleteProvider: function(){
+			
+				this.model.destroy();  //delete model
+				this.remove();	//delete view
+			},
+			events: {
+				"click .delete": "deleteProvider"
+			}
+			
 		});
 		
 		var ProviderListView = Backbone.View.extend({
@@ -163,6 +172,10 @@ $(document).ready(function(){
 			initialize: function(){
 				this.collection = new ProviderCollection(myProviders);
 				this.render();
+				
+				//display on add
+				this.collection.on("add", this.renderProvider, this);
+				this.collection.on("remove", this.removeProvider, this);
 			},
 			render:function(){
 				var that = this;
@@ -176,8 +189,9 @@ $(document).ready(function(){
 				});
 				this.$el.append(providerView.render().el);
 			},
-			addProvider: function(){
-				var formData = {};
+			addProvider: function(e){//not sure if we really want to keep this, we won't be adding providers
+				e.preventDefault();
+				var formData = {};	//need to use the same name for ids as keys in the object to get this mapping to work
 				
 				$("#provider-form input").children("input").each(function(i, el){
 					formData[el.id] = $(el).val();
@@ -185,6 +199,24 @@ $(document).ready(function(){
 					//providerCollection.push(formData);  Could call this later but this isn't what we really want to do
 					this.collection.add(new Provider(formData));
 				});
+			},
+			removeProvider: function(removedProvider){
+				var removedProviderData = removedProvider.attributes;
+				
+				_.each(removedProvider, function(val, key){
+					if(removedProviderData[key] === removedProvider.defaults[key]){
+						delete removedProviderData[key];
+					}
+				});
+				
+				_.each(myProviders, function(provider){
+					if(_.isEqual(provider, removedProviderData)){
+						providers.splice(_.indexOf(providers, provider), 1);
+					}
+				});
+			},
+			events:{
+				"click #add": "addProvider"
 			}
 		});
 	
