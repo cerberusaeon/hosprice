@@ -115,9 +115,11 @@ $(document).ready(function(){
 			  city: '',
 			  diagnosis: '',
 			  hospital: '',
+			  //localStorage: new Backbone.LocalStorage("providerStorage"),  //local storage may need plugin
 			  url : function(){
 					  var params = $.param({zipcode:this.zipcode, state: this.state, city:this.city, diagnosis:this.diagnosis, hospital:this.hospital});  //probably an easier way to do this...
-					  var executeUrl ="/hosprice/rest/provider/hospital?"+params;
+					  //var executeUrl ="/hosprice/rest/provider/hospital?"+params;
+					  var executeUrl ="/hosprice/rest/providers";
 					  return executeUrl;
 				},
 				initialize: function(){
@@ -170,12 +172,15 @@ $(document).ready(function(){
 			el: $("#results-container"),
 			
 			initialize: function(){
-				this.collection = new ProviderCollection(myProviders);
+				//this.collection = new ProviderCollection(myProviders);
+				this.collection = new ProviderCollection();
+				this.collection.fetch();
 				this.render();
 				
 				//display on add
 				this.collection.on("add", this.renderProvider, this);
 				this.collection.on("remove", this.removeProvider, this);
+				this.collection.on("reset", this.render, this);
 			},
 			render:function(){
 				var that = this;

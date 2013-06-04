@@ -46,7 +46,7 @@ public class ProviderRestService {
 		return Response.status(200).entity(pms).build();
 	}
 	
-	@Path("/")
+	
 	@Produces("application/json")
 	@GET
 	public Response getAllProviders (){
@@ -62,7 +62,7 @@ public class ProviderRestService {
 		return Response.status(200).entity(pms).build();
 	}
 	
-	@Path("/")
+	
 	@Produces("application/json")
 	@POST
 	public Response postProvider(){
