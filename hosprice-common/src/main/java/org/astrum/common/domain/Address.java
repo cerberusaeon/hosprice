@@ -21,6 +21,8 @@ public class Address implements java.io.Serializable {
 	private String city;
 	private String state;
 	private String zipcode;
+	private String latitude;
+	private String longitude;
 	
 	
 	@Id
@@ -63,6 +65,22 @@ public class Address implements java.io.Serializable {
 	public void setZipcode(String zipcode) {
 		this.zipcode = zipcode;
 	}
+	public String getLatitude() {
+		return latitude;
+	}
+
+	public String getLongitude() {
+		return longitude;
+	}
+
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -90,10 +90,8 @@ $(document).ready(function(){
 		          }
 		      },
 		    initialize: function(){
-		        alert("Welcome to this world");
 		        this.on("change:name", function(model){
 		            var name = model.get("name"); 
-		            alert("Changed my name to " + name );
 		        });
 		        
 		        this.bind("invalid", function(model, error){
@@ -131,19 +129,40 @@ $(document).ready(function(){
 					$(response).each(function(){ 
 					    console.log("main", this);
 					    var tempView = new ProviderView({model: this});
+					    
+					    //TODO not sure if this is the best place to add points to map...
+					   // var point = new GLatLng(latitude,longitude);
+					   // map.addOverlay(new GMarker(point));
 					 });
 					return response;
 				},
 				display:function(){
 					console.log("might as well try this too");
-				}
+				},
+				 codeAddress: function codeAddress(address) {
+				    address = document.getElementById("address").value;
+				    geocoder.geocode( { 'address': address}, function(results, status) {
+				      if (status == google.maps.GeocoderStatus.OK) {
+				        map.setCenter(results[0].geometry.location);
+				        var marker = new google.maps.Marker({
+				            map: map,
+				            position: results[0].geometry.location
+				        });
+				      } else {
+				        alert("Geocode was not successful for the following reason: " + status);
+				      }
+				    });
+				  }
+				
+				
+				
 		});
 
 
 		var ProviderView = Backbone.View.extend({
 		    tagName: 'div',
 		    id: 'results-container',
-		    className: 'recommendationContainer',
+		    className: 'recommendationContainer well',
 		    template: $("#template-recommendation").html(),
 		    initialize: function() {
 				    //this.model.bind("change", this.render, this);
@@ -225,41 +244,8 @@ $(document).ready(function(){
 			}
 		});
 	
-		
-	
-	//////////////////////////////////////////////
-		
-		
-		
-		
-	//////////////////// Temp Model code for example ////////////////////////////
-	
-		
-//	var myProvider = new Provider({
-//		providerId: 34423,
-//		legacyId: '4324',
-//		name: 'Calloway Provider',
-//		address1: '198 Halpine Rd',
-//		address2: '#1246',
-//		city: 'Rockville',
-//		state: 'MD',
-//		zipcode: '20852',
-//		regionName: 'Montgomery',
-//		regionState: 'MD'
-//	});	
-//	
-//	myProviderView = new ProviderView({
-//		model: myProvider
-//	});
-//		
-//	$("#results-container").html(myProviderView.render().el);
-		
-		var myProviderListView = new ProviderListView();
-	
-	
-		
-	////////////////////End Temp Model code /////////////////////////////////////	
-	
+			
+	var myProviderListView = new ProviderListView();
 	
 	console.log("done executing app setup");
 	

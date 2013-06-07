@@ -58,6 +58,10 @@ font-family: 'Six Caps', sans-serif;
 #results-container button {
 	float: right;
 	margin: 10px;
+	
+}
+.recommendationContainer {
+	max-width: 50%;
 }
 </style>
 <link href='http://fonts.googleapis.com/css?family=Gentium+Basic|Signika|Forum|Arvo:700|Six+Caps' rel='stylesheet' type='text/css'>
@@ -76,17 +80,66 @@ font-family: 'Six Caps', sans-serif;
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9nPAC-4KSrsw-bwsLfgkaLnCGruTtqqc&sensor=false">
     </script>
+    
+    <script type="text/javascript"
+      src="https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyC9nPAC-4KSrsw-bwsLfgkaLnCGruTtqqc">
+    </script>
+    
     <script type="text/javascript">
+    var map = null;
+    var geocoder = null;
       function initialize() {
         var mapOptions = {  
           center: new google.maps.LatLng(39.0839, -77.1531),
           zoom: 8,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
-        var map = new google.maps.Map(document.getElementById("map-canvas"),
+        map = new google.maps.Map(document.getElementById("map-canvas"),
             mapOptions);
+        
+        
+        if(navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+              var pos = new google.maps.LatLng(position.coords.latitude,
+                                               position.coords.longitude);
+
+              var infowindow = new google.maps.InfoWindow({
+                map: map,
+                position: pos,
+                content: 'current location!'
+              });
+
+              map.setCenter(pos);
+            }, function() {
+              handleNoGeolocation(true);
+            });
+          } else {
+            // Browser doesn't support Geolocation
+            handleNoGeolocation(false);
+          }
+        
+        function handleNoGeolocation(errorFlag) {
+        	  if (errorFlag) {
+        	    var content = 'Error: The Geolocation service failed.';
+        	  } else {
+        	    var content = 'Error: Your browser doesn\'t support geolocation.';
+        	  }
+
+        	  var options = {
+        	    map: map,
+        	    position: new google.maps.LatLng(60, 105),
+        	    content: content
+        	  };
+
+        	  var infowindow = new google.maps.InfoWindow(options);
+        	  map.setCenter(options.position);
+        
+        
+        } 
+       // geocoder = new google.maps.Geocoder();
       }
       google.maps.event.addDomListener(window, 'load', initialize);
+      
     </script>
 
 </head>
@@ -174,10 +227,23 @@ font-family: 'Six Caps', sans-serif;
 		</p>
 		</div>
 	</div>
+	
 	<script type="text/template" id="template-recommendation">
-			<h3>Recommendation - <%= name %></h3>
-			<p>Some stuff here</p>
+			
+			<fieldset>
+				<legend><%= name %></legend>
+				<label for="location">Location:<span id="location"><%= address1 %></span><span><%= ", "+city +", "+state+" "+zipcode %></span></label>
+				<label for="region-name">Region Name:<span id="region-name"><%= regionName %></span></label>
+				<label for="diagnosis-related-groups">Related Groups: (<%= diagnosisRelatedGroupModels.length  %>)</label>
+				<div style="padding-left: 20px;">
+				<% $(diagnosisRelatedGroupModels).each(function(){ %>
+					<label>Diagnosis Group: <%= this.type  %></label>
+				<%}) %>
+				</div>
+			</fieldset>
+			
 			<button class="delete">Delete</button>
+			
 	</script>
 	
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -192,6 +258,7 @@ font-family: 'Six Caps', sans-serif;
 	<script src="../../components/bootstrap/js/bootstrap.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.10/backbone-min.js"></script>
+	
 	<script src="../../js/app.js"></script>
 	
 	<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
