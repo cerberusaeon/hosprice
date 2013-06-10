@@ -127,12 +127,34 @@ $(document).ready(function(){
 				parse: function(response){
 					console.log(response);
 					$(response).each(function(){ 
-					    console.log("main", this);
+					    console.log("main >>>>", this);
 					    var tempView = new ProviderView({model: this});
 					    
-					    //TODO not sure if this is the best place to add points to map...
-					   // var point = new GLatLng(latitude,longitude);
-					   // map.addOverlay(new GMarker(point));
+					    //TODO: not sure if this is the best place to add points to map...
+					   
+					   var testAddress = ["1133 15th ST, NW, Washington, DC 20005", 
+					   						"1400 G Street Northwest, Washington, DC 20005",
+					   						"1501 Pennsylvania Ave., N.W., Washington, DC 20006",
+					   						"1818 H Street Northwest, Washington, DC 20433"
+					   						];
+					   
+					   	var tempAddress = this.address1 + ", "+this.city+ ", "+this.state;
+
+						geocoder = new google.maps.Geocoder();
+						console.log("my address: ", tempAddress);
+						geocoder.geocode( { 'address': tempAddress}, function(results, status) {
+					      if (status == google.maps.GeocoderStatus.OK) {
+					        map.setCenter(results[0].geometry.location);
+					        map.setZoom(4);
+					        var marker = new google.maps.Marker({
+					            map: map,
+					            position: results[0].geometry.location
+					        });
+					      } else {
+					        alert("Geocode was not successful for the following reason: " + status);
+					      }
+					    });					    
+					    
 					 });
 					return response;
 				},
@@ -140,7 +162,8 @@ $(document).ready(function(){
 					console.log("might as well try this too");
 				},
 				 codeAddress: function codeAddress(address) {
-				    address = document.getElementById("address").value;
+				 	console.log("executing codeAddres...");
+				    //address = document.getElementById("address").value;
 				    geocoder.geocode( { 'address': address}, function(results, status) {
 				      if (status == google.maps.GeocoderStatus.OK) {
 				        map.setCenter(results[0].geometry.location);
@@ -173,6 +196,7 @@ $(document).ready(function(){
 						  console.log(this.model.attributes);
 						  var templ = _.template(this.template);
 						  this.$el.html(templ(this.model.toJSON()));
+
 						  return this;
 			},
 			deleteProvider: function(){
@@ -211,7 +235,13 @@ $(document).ready(function(){
 				var providerView = new ProviderView({
 					model: item
 				});
+
 				this.$el.append(providerView.render().el);
+				providerView.$el.css({position: 'relative', left: '800px', display: 'block', float: 'left', width: '100px', maxWidth: '175px'});
+				providerView.$el.animate({left: 0},'slow').slideDown(2000);  //  .initially hides recommendation boxes
+
+
+
 			},
 			addProvider: function(e){//not sure if we really want to keep this, we won't be adding providers
 				e.preventDefault();

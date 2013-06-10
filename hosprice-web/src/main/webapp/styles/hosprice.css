@@ -1,8 +1,17 @@
 .resultContainer{
 	max-width: 275px;
-	
+	float: left;	
 }
 
 .recommendationContainer{
 	padding-left: 400px;
+	min-width: 600px;
+	
+}
+
+
+
+/*map fix for conflict with bootstraps */
+#map-canvas img {
+  max-width: none;
 }
