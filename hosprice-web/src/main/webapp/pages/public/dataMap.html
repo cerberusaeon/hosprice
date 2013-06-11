@@ -172,49 +172,60 @@ font-family: 'Six Caps', sans-serif;
 
   <div id=""></div>
 	
-	<div class="row-fluid" style="color:#666;  position:relative; ">
+	<div id="main-container" class="row-fluid" style="color:#666;  position:relative; ">
    
-    <div class="span3" >
-      <h3 style="color:#666; position:relative; top:-10px;">Provider Search</h3>
+    <div id="search-container" class="span3" >
+      
+      <div id="search-form">
+      <h4 style="color:#666;top:-10px; margin-left:10px;">Provider Search</h4>
         <form id="provider-form" action="/provider/query">
 
              
-              <label for="diagnosis-group" class="control-label">Diagnosis:   <div class="controls"><input id="diagnosis-group" name="diagnosis" type="text" placeholder="Diagnosis" /></div></label>
+              <label for="diagnosis-group" >Diagnosis:</label> <input id="diagnosis-group" name="diagnosis" type="text" placeholder="Diagnosis" />
             
             
-              <label for="hospital-name" class="control-label">Hospital:</label>
-              <div class="controls"><input id="hospital-name" type="text" name="hospital" placeholder="hospital name"></input></div>
+              <label for="hospital-name">Hospital:</label>
+              <input id="hospital-name" type="text" name="hospital" placeholder="hospital name"/>
             
             
-              <label for="zipcode" class="control-label">Zipcode:</label><div class="controls"> <input id="zipcode" name="zipcode" type="text" placeholder="zipcode"  /></div>
+              <label for="zipcode" >Zipcode:</label>
+              <input id="zipcode" name="zipcode" type="text" placeholder="zipcode"  />
             
             
-              <label for="city" class="control-label">City:</label><div class="controls"> <input id="city" type="text" name="city" placeholder="city" /></div>
+              <label for="city" >City:</label>
+              <input id="city" type="text" name="city" placeholder="city" />
             
             
-              <label for="state" class="control-label">State:</label><div class="controls"> <input id="state" name="state" type="text" placeholder="State" /></div>
+              <label for="state" class="control-label">State:</label>
+              <input id="state" name="state" type="text" placeholder="State" />
             
               
-            <div class="control-group">
-              <div class="controls"><button id="submit-provider-form" type="submit" class="btn btn-primary">Search</button></div>
-            </div>  
+            
+              <button id="submit-provider-form" type="submit" class="btn btn-primary">Search</button>
+              
           
           </form>
+        </div>
+      <div id="search-result-container" class="span3">
+
+        <!--  <button id="search-again"  class="btn btn-primary">Back</button>-->
+      </div>
     </div>
-    <div id="map-canvas" class="span9" style="min-height:450px;"></div>
+    
+    <div id="map-canvas" class="span9 pull-left" style="min-height:450px;"></div>
   </div>
+
+ 
 
 <!--<div class="blackOpacity" style="position:relative;  left: 50px; "></div>-->
 	 
   
 	
-    <div id="results-container" class="recommendationContainer">
+<!--    <div id="results-container" class="recommendationContainer">
       
-    </div>
+    </div>-->
 
-	<div id="list-results-container" class="listResultsContainer">
-		<!-- stick entire collection here -->
-	</div>
+	
     
 	<br/>
 	<div class="row-fluid">

@@ -4,14 +4,29 @@
 }
 
 .recommendationContainer{
-	padding-left: 400px;
-	min-width: 600px;
-	
+
+	min-width: 275px;
 }
-
-
 
 /*map fix for conflict with bootstraps */
 #map-canvas img {
   max-width: none;
+}
+
+#provider-form label{
+	display:inline-block;
+	min-width: 80px;
+	text-align: right;
+	color: #219BC8;
+	font-weight: bold;
+}
+
+#provider-form input{
+	width: 200px;
+}
+
+#provider-form button{
+	float:right;
+	margin-right: 5px;
+
 }

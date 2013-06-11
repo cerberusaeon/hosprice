@@ -184,7 +184,7 @@ $(document).ready(function(){
 
 		var ProviderView = Backbone.View.extend({
 		    tagName: 'div',
-		    id: 'results-container',
+		    id: 'search-result-container',
 		    className: 'recommendationContainer well',
 		    template: $("#template-recommendation").html(),
 		    initialize: function() {
@@ -212,13 +212,13 @@ $(document).ready(function(){
 		
 		var ProviderListView = Backbone.View.extend({
 			
-			el: $("#results-container"),
+			el: $("#search-result-container"),
 			
 			initialize: function(){
 				//this.collection = new ProviderCollection(myProviders);
 				this.collection = new ProviderCollection();
-				this.collection.fetch();
-				this.render();
+				//this.collection.fetch();
+				//this.render();
 				
 				//display on add
 				this.collection.on("add", this.renderProvider, this);
@@ -282,13 +282,20 @@ $(document).ready(function(){
 	$('#provider-form').on("submit", function(event){
 		console.log("clicked form...");
 		event.preventDefault();
+
+		$('#search-form').slideUp('slow');
+		//$('#search-result-container').attr('display', 'block');
+		
+
 		var formZipcode = $('#provider-form input[name=zipcode]').val();
 		var formState = $('#provider-form input[name=state]').val();
 		var formCity = $('#provider-form input[name=city]').val();
 		var formHospital = $('#provider-form input[name=hospital]').val();
 		var formDiagnosis = $('#provider-form input[name=diagnosis]').val();
 		
-		var providerCollection = new ProviderCollection({zipcode:formZipcode, state:formState, city:formCity, hospital:formHospital, diagnosis:formDiagnosis});
+		var providerCollection = myProviderListView.collection;
+		console.log("NEW PROVIDER COLLECTION: ", providerCollection	);
+		//var providerCollection = new ProviderCollection({zipcode:formZipcode, state:formState, city:formCity, hospital:formHospital, diagnosis:formDiagnosis});
 		console.log("===== provider =====");
 		console.log(providerCollection);
 		providerCollection.zipcode = formZipcode;
@@ -297,9 +304,6 @@ $(document).ready(function(){
 		providerCollection.fetch({
 	        success: function (result, options) {
 	        	console.log("success fetching provider via backbone...");
-	        	var myProvider = providerCollection.at(0);
-	        	//providerCollection.
-	        	console.log(providerCollection);
 	        	
 	        },
 	        error: function(xhr, textStatus, error){
@@ -309,7 +313,8 @@ $(document).ready(function(){
 				  console.log(error);
 	        }
 	    });
-		providerCollection.render();
+		//providerCollection.render();
+		$('#search-result-container').slideDown('slow').delay(2000);
 		return false;
 	});
 	
