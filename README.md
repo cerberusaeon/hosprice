@@ -34,6 +34,12 @@ Install Maven 3
 
 git clone https://github.com/cerberusaeon/hosprice.git
 
+Install mySQL connector ( check 'opt' folder )
+
+mvn install:install-file -Dfile=mysql-connector-java-5.1.24.jar -DgroupId=mysql -DartifactI
+d=mysql-connector-java -Dversion=5.1.24 -Dpackaging=jar
+
+
 build:
   mvn clean package
 
