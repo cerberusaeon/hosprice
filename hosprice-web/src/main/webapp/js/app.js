@@ -132,11 +132,6 @@ $(document).ready(function(){
 					    
 					    //TODO: not sure if this is the best place to add points to map...
 					   
-					   var testAddress = ["1133 15th ST, NW, Washington, DC 20005", 
-					   						"1400 G Street Northwest, Washington, DC 20005",
-					   						"1501 Pennsylvania Ave., N.W., Washington, DC 20006",
-					   						"1818 H Street Northwest, Washington, DC 20433"
-					   						];
 					   
 					   	var tempAddress = this.address1 + ", "+this.city+ ", "+this.state;
 
@@ -196,7 +191,21 @@ $(document).ready(function(){
 						  console.log(this.model.attributes);
 						  var templ = _.template(this.template);
 						  this.$el.html(templ(this.model.toJSON()));
+						  console.log("EL OF PROVIDER", this.$el);
+						  var diagnosisId = "#diagnosis-label-groups-"+this.model.attributes.providerId;
+						  console.log("DIAG ID", this.$el);
+						  var delegationId = "diagnosis-related-groups-div-"+this.model.attributes.providerId;
+						  
 
+						  //needed to add listener to toggle info
+						  this.$el.on('click', diagnosisId, function(){
+						  	
+						  	console.log($(this).find('[name="diagnosis_related_group_div"]'));
+						  	$(this).next().toggle();  //don't ever move the element lol...so difficult
+						  	
+						  	
+						  });
+						  
 						  return this;
 			},
 			deleteProvider: function(){
@@ -317,7 +326,7 @@ $(document).ready(function(){
 		$('#search-result-container').slideDown('slow').delay(2000);
 		return false;
 	});
-	
+		
 	//needed for safe paths, hitting back button etc
 	 new HospriceRouter();
 	 Backbone.history.start({pushState: true});

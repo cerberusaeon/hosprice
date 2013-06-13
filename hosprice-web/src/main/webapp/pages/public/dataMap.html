@@ -240,11 +240,11 @@ font-family: 'Six Caps', sans-serif;
 	<script type="text/template" id="template-recommendation">
 			
 			<fieldset>
-				<legend><%= name %></legend>
+				<h6><%= name %></h6>
 				<label for="location">Location:<span id="location"><%= address1 %></span><span><%= ", "+city +", "+state+" "+zipcode %></span></label>
 				<label for="region-name">Region Name:<span id="region-name"><%= regionName %></span></label>
-				<label for="diagnosis-related-groups">Related Groups: (<%= diagnosisRelatedGroupModels.length  %>)</label>
-				<div style="padding-left: 20px;">
+				<label id="diagnosis-label-groups-<%= providerId %>"  name="diagnosis_label" for="diagnosis-related-groups">Related Groups: (<%= diagnosisRelatedGroupModels.length  %>)</label>
+				<div id="diagnosis-related-groups-div-<%= providerId %>" name="diagnosis_related_group_div" style="padding-left: 20px;">
 				<% $(diagnosisRelatedGroupModels).each(function(){ %>
 					<label>Diagnosis Group: <%= this.type  %></label>
 				<%}) %>
