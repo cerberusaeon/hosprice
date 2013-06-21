@@ -2,7 +2,10 @@
 
 $(document).ready(function(){
 	console.log("executed...");
-
+	$("#back").click(function(){
+		$("#search-result-container").fadeOut();
+		$("#search-form").delay(500).fadeIn();
+	});
 	//////////////////////////////////////////////
 	var HospriceRouter = Backbone.Router.extend({
 
@@ -236,6 +239,10 @@ $(document).ready(function(){
 			},
 			render:function(){
 				var that = this;
+				var searchAgain = $("#search-again");
+				console.log("SEARCH AGAIN: ",searchAgain);
+				var div = $("<div/>").append(searchAgain);
+				this.$el.append(div);
 				_.each(this.collection.models, function(item){
 					that.renderProvider(item);
 				}, this);
@@ -244,7 +251,7 @@ $(document).ready(function(){
 				var providerView = new ProviderView({
 					model: item
 				});
-
+				
 				this.$el.append(providerView.render().el);
 				providerView.$el.css({position: 'relative', left: '800px', display: 'block', float: 'left', width: '100px', maxWidth: '175px'});
 				providerView.$el.animate({left: 0},'slow').slideDown(2000);  //  .initially hides recommendation boxes
