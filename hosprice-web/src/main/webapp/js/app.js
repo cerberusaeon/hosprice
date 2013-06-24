@@ -4,7 +4,11 @@ $(document).ready(function(){
 	console.log("executed...");
 	$("#back").click(function(){
 		$("#search-result-container").fadeOut();
+		
 		$("#search-form").delay(500).fadeIn();
+		alert("Yeah fucker");
+		hosprice.providerListView.collection.reset();
+
 	});
 	//////////////////////////////////////////////
 	var HospriceRouter = Backbone.Router.extend({
@@ -36,34 +40,7 @@ $(document).ready(function(){
 
 
 
-		var DataMap = function(options){
-			var searchInputHospital = options.searchInputHospital;
-			var searchInputDiagnosis = options.searchInputDiagnosis;
-			var searchInputZipcode = options.searchInputZipcode;
-			var searchInputState = options.searchInputState;
-			var searchInputCity = options.searchInputCity;
-			
-			this.getSearchInputCity = function(){
-				return searchInputCity;
-			}
-			
-			this.sayHello = function(){
-				console.log("why hello?");
-			}
-		}
-
-		var Hosprice = function(options){
-			this.dataMap = new DataMap({searchInputCity:'fartCity'});
-			
-			this.hospriceHello = function(){
-				console.log("hosprice hello!");
-			}
-		}
-
-		var hosprice = new Hosprice();
-		hosprice.dataMap.sayHello();
-		hosprice.hospriceHello();  
-
+		
 		//added for example
 		var myProviders = [
 		          	     {providerId: '100', name: 'Birshire Provider', zipcode: '33433'},
@@ -116,10 +93,10 @@ $(document).ready(function(){
 			  city: '',
 			  diagnosis: '',
 			  hospital: '',
-			  //localStorage: new Backbone.LocalStorage("providerStorage"),  //local storage may need plugin
+			 
 			  url : function(){
 					  var params = $.param({zipcode:this.zipcode, state: this.state, city:this.city, diagnosis:this.diagnosis, hospital:this.hospital});  //probably an easier way to do this...
-					  //var executeUrl ="/hosprice/rest/provider/hospital?"+params;
+					  
 					  var executeUrl ="/hosprice/rest/providers";
 					  return executeUrl;
 				},
@@ -227,21 +204,23 @@ $(document).ready(function(){
 			el: $("#search-result-container"),
 			
 			initialize: function(){
-				//this.collection = new ProviderCollection(myProviders);
 				this.collection = new ProviderCollection();
-				//this.collection.fetch();
-				//this.render();
+				//this.providerViewCollection = new Array();
 				
 				//display on add
 				this.collection.on("add", this.renderProvider, this);
 				this.collection.on("remove", this.removeProvider, this);
 				this.collection.on("reset", this.render, this);
+				this.collection.on("change", this.render, this);
 			},
 			render:function(){
+				
 				var that = this;
 				var searchAgain = $("#search-again");
-				console.log("SEARCH AGAIN: ",searchAgain);
+				//console.log("SEARCH AGAIN: ",searchAgain);
 				var div = $("<div/>").append(searchAgain);
+				
+				this.$el.empty();
 				this.$el.append(div);
 				_.each(this.collection.models, function(item){
 					that.renderProvider(item);
@@ -251,13 +230,10 @@ $(document).ready(function(){
 				var providerView = new ProviderView({
 					model: item
 				});
-				
+				//this.providerViewCollection.add(providerView);
 				this.$el.append(providerView.render().el);
 				providerView.$el.css({position: 'relative', left: '800px', display: 'block', float: 'left', width: '100px', maxWidth: '175px'});
 				providerView.$el.animate({left: 0},'slow').slideDown(2000);  //  .initially hides recommendation boxes
-
-
-
 			},
 			addProvider: function(e){//not sure if we really want to keep this, we won't be adding providers
 				e.preventDefault();
@@ -291,7 +267,35 @@ $(document).ready(function(){
 		});
 	
 			
-	var myProviderListView = new ProviderListView();
+	var DataMap = function(options){
+			var searchInputHospital = options.searchInputHospital;
+			var searchInputDiagnosis = options.searchInputDiagnosis;
+			var searchInputZipcode = options.searchInputZipcode;
+			var searchInputState = options.searchInputState;
+			var searchInputCity = options.searchInputCity;
+			
+			this.getSearchInputCity = function(){
+				return searchInputCity;
+			}
+			
+			this.sayHello = function(){
+				console.log("why hello?");
+			}
+		}
+
+		var Hosprice = function(options){
+			this.dataMap = new DataMap({searchInputCity:'fartCity'});
+			this.providerListView = new ProviderListView();
+			
+			this.hospriceHello = function(){
+				console.log("hosprice hello!");
+			}
+		}
+
+		var hosprice = new Hosprice();
+		hosprice.dataMap.sayHello();
+		hosprice.hospriceHello();  
+
 	
 	console.log("done executing app setup");
 	
@@ -309,15 +313,11 @@ $(document).ready(function(){
 		var formHospital = $('#provider-form input[name=hospital]').val();
 		var formDiagnosis = $('#provider-form input[name=diagnosis]').val();
 		
-		var providerCollection = myProviderListView.collection;
-		console.log("NEW PROVIDER COLLECTION: ", providerCollection	);
-		//var providerCollection = new ProviderCollection({zipcode:formZipcode, state:formState, city:formCity, hospital:formHospital, diagnosis:formDiagnosis});
-		console.log("===== provider =====");
-		console.log(providerCollection);
-		providerCollection.zipcode = formZipcode;
-		console.log(providerCollection.zipcode);
-		console.log("===== provider =====");
-		providerCollection.fetch({
+		
+		//hosprice.providerListView.collection.reset();
+		
+		hosprice.providerListView.collection.zipcode = formZipcode;
+		hosprice.providerListView.collection.fetch({
 	        success: function (result, options) {
 	        	console.log("success fetching provider via backbone...");
 	        	
