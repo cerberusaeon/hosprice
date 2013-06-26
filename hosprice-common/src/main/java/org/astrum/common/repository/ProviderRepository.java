@@ -15,5 +15,7 @@ public interface ProviderRepository extends JpaRepository<Provider, Long> {
 	
 	public Provider findByLegacyId(Long legacyId);
 	
+	
+	
 
 }

@@ -1,32 +1,49 @@
-package org.astrum.common.services;
+package org.astrum.common.repository;
 
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.ParameterExpression;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.astrum.common.domain.Provider;
-import org.astrum.common.repository.ProviderRepository;
-import org.springframework.stereotype.Service;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
-@Service
-public class ProviderService {
 
+@Transactional
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration({ "classpath:applicationContext.xml",
+		"classpath:applicationContext-hibernate.xml" })
+public class ProviderRepositoryTest {
+
+	Logger logger = LoggerFactory.getLogger(Provider.class);
 	
-	@Inject
+	@Inject 
 	ProviderRepository providerRepository;
 	
-	@Inject
+	@PersistenceUnit
 	EntityManagerFactory entityManagerFactory;
 	
-	
-	public List<Provider> getProviderByParams(String qZipcode, String qCity, String qState){
+	@Test
+	public void getByParams(){
+		String qZipcode="36301";
+		String qCity = "DOTHAN";
+		String qState = "AL";
+		
 		  EntityManager entityManager = entityManagerFactory.createEntityManager();
 		  CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 		  
@@ -47,21 +64,9 @@ public class ProviderService {
 		  query.setParameter(zipcode, qZipcode);
 		  query.setParameter(city, qCity );
 		  query.setParameter(state, qState);
-		
-		return query.getResultList();
+		  List<Provider> results = query.getResultList();
+		  logger.info("results size: "+results.size());
+		  
 	}
 	
-	public Provider getProviderByName(String name){
-		return providerRepository.findByName(name);
-	}
-	public Provider getProviderById(Long providerId){
-		return providerRepository.findOne(providerId);
-	}
-	public Provider getProviderByLegacyId(Long providerId){
-		return providerRepository.findByLegacyId(providerId);
-	}
-	
-	public List<Provider> findAll(){
-		return providerRepository.findAll();
-	}
 }

@@ -30,13 +30,12 @@ public class ProviderRestService {
 	ProviderService providerService;
 	
 	
-	@Path("/hospital")
 	@Produces("application/json")
 	@GET
 	public Response getProviderByZipcode(@QueryParam("zipcode") String zipcode, @QueryParam("state") String state, @QueryParam("city") String city, @QueryParam("hospital") String hospital, @QueryParam("diagnosis") String diagnosis ){
 		List<ProviderModel> pms = null;
 		try{
-			List <Provider> ps = providerService.getProvidersByZipcode(zipcode);
+			List <Provider> ps = providerService.getProviderByParams(zipcode, city, state);
 			pms = ProviderModel.convertToModel(ps);
 		}
 		catch(Exception e){
@@ -47,6 +46,9 @@ public class ProviderRestService {
 	}
 	
 	
+	
+	
+	@Path("/hospital")
 	@Produces("application/json")
 	@GET
 	public Response getAllProviders (){

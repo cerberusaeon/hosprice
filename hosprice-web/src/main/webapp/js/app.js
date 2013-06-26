@@ -6,7 +6,6 @@ $(document).ready(function(){
 		$("#search-result-container").fadeOut();
 		
 		$("#search-form").delay(500).fadeIn();
-		alert("Yeah fucker");
 		hosprice.providerListView.collection.reset();
 
 	});
@@ -97,7 +96,7 @@ $(document).ready(function(){
 			  url : function(){
 					  var params = $.param({zipcode:this.zipcode, state: this.state, city:this.city, diagnosis:this.diagnosis, hospital:this.hospital});  //probably an easier way to do this...
 					  
-					  var executeUrl ="/hosprice/rest/providers";
+					  var executeUrl ="/hosprice/rest/providers?"+params;
 					  return executeUrl;
 				},
 				initialize: function(){
@@ -317,6 +316,9 @@ $(document).ready(function(){
 		//hosprice.providerListView.collection.reset();
 		
 		hosprice.providerListView.collection.zipcode = formZipcode;
+		hosprice.providerListView.collection.state = formState;
+		hosprice.providerListView.collection.city = formCity;
+
 		hosprice.providerListView.collection.fetch({
 	        success: function (result, options) {
 	        	console.log("success fetching provider via backbone...");
