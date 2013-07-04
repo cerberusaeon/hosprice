@@ -1,5 +1,6 @@
 package org.astrum.common.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -24,7 +25,7 @@ public class Provider implements java.io.Serializable {
 	private Long providerId;
 	private String name;
 	private Long legacyId;
-	private List<DiagnosisRelatedGroup> diagnosisRelatedGroups;
+	private List<DiagnosisRelatedGroup> diagnosisRelatedGroups = new ArrayList<DiagnosisRelatedGroup>();
 	private Address address;
 	private Region region;
 
@@ -48,7 +49,7 @@ public class Provider implements java.io.Serializable {
 	public Address getAddress() {
 		return address;
 	}
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.ALL})
 	@JoinColumn(name="regionId")
 	public Region getRegion() {
 		return region;
@@ -101,25 +102,10 @@ public class Provider implements java.io.Serializable {
 				return false;
 		} else if (!address.equals(other.address))
 			return false;
-		if (diagnosisRelatedGroups == null) {
-			if (other.diagnosisRelatedGroups != null)
-				return false;
-		} else if (!diagnosisRelatedGroups.equals(other.diagnosisRelatedGroups))
-			return false;
-		if (legacyId == null) {
-			if (other.legacyId != null)
-				return false;
-		} else if (!legacyId.equals(other.legacyId))
-			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
 		} else if (!name.equals(other.name))
-			return false;
-		if (region == null) {
-			if (other.region != null)
-				return false;
-		} else if (!region.equals(other.region))
 			return false;
 		return true;
 	}

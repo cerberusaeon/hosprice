@@ -110,16 +110,6 @@ public class Address implements java.io.Serializable {
 				return false;
 		} else if (!address1.equals(other.address1))
 			return false;
-		if (address2 == null) {
-			if (other.address2 != null)
-				return false;
-		} else if (!address2.equals(other.address2))
-			return false;
-		if (addressId == null) {
-			if (other.addressId != null)
-				return false;
-		} else if (!addressId.equals(other.addressId))
-			return false;
 		if (city == null) {
 			if (other.city != null)
 				return false;

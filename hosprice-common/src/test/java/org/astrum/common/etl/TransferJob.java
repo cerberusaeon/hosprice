@@ -4,14 +4,22 @@ package org.astrum.common.etl;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.inject.Inject;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.astrum.common.domain.Address;
+import org.astrum.common.domain.DiagnosisRelatedGroup;
 import org.astrum.common.domain.Provider;
 import org.astrum.common.domain.Region;
+import org.astrum.common.repository.ProviderRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -43,6 +51,9 @@ public class TransferJob {
 	
 	public static Integer MAX_ROWS = 65500;  //max allowed by poi library
 	
+	@Inject
+	ProviderRepository providerRepository;
+	
 	@Test
 	public void runTransfer() throws IOException{
 		logger.info("Kick the tires and light the fires...");
@@ -57,6 +68,9 @@ public class TransferJob {
 		Row firstRow = sheet.getRow(1);
 		logger.info("MY ROW: "+firstRow.getCell(0));
 		Provider[] list = new Provider[MAX_ROWS + 1];
+		HashMap<Long, Provider> providerMap = new HashMap<Long,Provider>();
+		int foundNewInstance = 0;
+		int mergingNewInstance = 0;
 		for(int i = STARTING_DATA_ROW;i <= MAX_ROWS; i++){
 			Row r = sheet.getRow(i);
 			Provider p = new Provider();
@@ -70,7 +84,7 @@ public class TransferJob {
 			String providerName = r.getCell(PROVIDER_NAME).getStringCellValue();
 			p.setLegacyId(tempLegacyProviderId);
 			p.setName(providerName);
-			logger.info("Provider: "+p.toString());
+			//logger.info("Provider: "+p.toString());
 			
 			
 			String street1 = r.getCell(PROVIDER_STREET_ADDRESS).getStringCellValue();
@@ -80,7 +94,7 @@ public class TransferJob {
 			a.setState(r.getCell(PROVIDER_STATE).getStringCellValue());
 			Long tempZip = (long)(r.getCell(PROVIDER_ZIP).getNumericCellValue());
 			a.setZipcode(tempZip.toString());
-			logger.info(a.toString());
+			//logger.info(a.toString());
 			
 			Region region = new Region();
 			String rawRegion = r.getCell(PROVIDER_REFERRAL_REGION).getStringCellValue();
@@ -90,16 +104,56 @@ public class TransferJob {
 			
 			region.setName(rName);
 			region.setState(rState);
-			logger.info(region.toString());
+			//logger.info(region.toString());
 			
+			DiagnosisRelatedGroup drg = new DiagnosisRelatedGroup();
+			
+			Double averageCoveredCharges = r.getCell(AVERAGE_COVERED_CHARGES).getNumericCellValue();
+			Double averageTotalPayments = r.getCell(AVERAGE_TOTAL_PAYMENTS).getNumericCellValue();
+			Double totalDischarges = r.getCell(TOTAL_DISCHARGES).getNumericCellValue();
+			
+			drg.setType(drgDefinition);
+			drg.setAverageCoveredCharges(new BigDecimal(averageCoveredCharges));
+			drg.setAverageTotalPayments(new BigDecimal(averageTotalPayments));
+			drg.setTotalDischarge(new BigDecimal(totalDischarges));
+			
+			p.setAddress(a);
+			p.getDiagnosisRelatedGroups().add(drg);
+			p.setRegion(region);
+			
+			Provider matchingProvider = providerMap.get(p.getLegacyId());
+			if(matchingProvider == null){
+				providerMap.put(p.getLegacyId(),p);
+				foundNewInstance++;
+			}
+			else{
+				matchingProvider.getDiagnosisRelatedGroups().addAll(p.getDiagnosisRelatedGroups());
+				mergingNewInstance++;
+			}
 			
 			list[i -1] = p;
 		}
 		
-//		for(int i = 0; i < 24000; i++){
-//			logger.info(i+":"+list[i].getName());
-//		}
-		
+		Collection<Provider> c = providerMap.values();
+		for(Provider p: c){
+			logger.info(p.toString());
+			providerRepository.save(p);
+		}
+		logger.info("size of collection: "+c.size());
+		logger.info("mergedENtities: "+mergingNewInstance);
+		logger.info("found new instance: "+foundNewInstance);
 		logger.info("All done...."+sheet.getRow(sheet.getLastRowNum()).getCell(1));
+		List<Provider> providerByZip = providerRepository.findByAddressZipcode("36116");
+		if(providerByZip.size() > 0){
+			logger.info("FOUND MY PROVIDER: "+providerByZip.get(0));
+		}
+		else{
+			logger.info("TOTALLY DIDN't FIND THE PROVIDER");
+		}
+		
+		List<Provider> unlimitedProviders = providerRepository.findAll();
+		logger.info("example provider: "+unlimitedProviders.get(0));
+		logger.info("total number of providers in database: "+unlimitedProviders.size());
+		
 	}
 }
