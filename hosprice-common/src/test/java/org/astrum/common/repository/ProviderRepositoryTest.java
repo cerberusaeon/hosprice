@@ -1,5 +1,7 @@
 package org.astrum.common.repository;
 
+import static org.junit.Assert.*;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -10,10 +12,9 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.ParameterExpression;
-import javax.persistence.criteria.Path;
-import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.astrum.common.domain.Address;
 import org.astrum.common.domain.Provider;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,6 +35,9 @@ public class ProviderRepositoryTest {
 	
 	@Inject 
 	ProviderRepository providerRepository;
+	
+	@Inject
+	AddressRepository addressRepository;
 	
 	@PersistenceUnit
 	EntityManagerFactory entityManagerFactory;
@@ -67,6 +71,12 @@ public class ProviderRepositoryTest {
 		  List<Provider> results = query.getResultList();
 		  logger.info("results size: "+results.size());
 		  
+	}
+	
+	@Test
+	public void testGetAddress(){
+		Address a = addressRepository.findAddressByAddressId(201L);
+		assertNotNull(a);
 	}
 	
 }

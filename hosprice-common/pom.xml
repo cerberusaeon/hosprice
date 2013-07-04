@@ -104,10 +104,10 @@
 		</dependency>
 
 
-		 <dependency>
+		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-		</dependency> 
+		</dependency>
 
 		<!-- javax.inject SUN implementation but could use javax.inject -->
 		<!-- <dependency> <groupId>javax</groupId> <artifactId>javaee-api</artifactId> 
@@ -123,6 +123,14 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.9</version>
+			<scope>test</scope>
+		</dependency>
+
 
 	</dependencies>
 
