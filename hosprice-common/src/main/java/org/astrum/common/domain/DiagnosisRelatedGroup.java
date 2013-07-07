@@ -1,14 +1,15 @@
 package org.astrum.common.domain;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,11 +21,11 @@ public class DiagnosisRelatedGroup implements java.io.Serializable {
 	private static final long serialVersionUID = -2183989461061672911L;
 	private Long diagnosisRelatedGroupId;
 	private String type;
-	private Long providerId;
+	private Provider providerId;
 	private BigDecimal totalDischarge;
 	private BigDecimal averageCoveredCharges;
 	private BigDecimal averageTotalPayments;
-	private List<Provider> providers;
+	//private List<Provider> providers;
 	
 	
 	@Id
@@ -36,10 +37,10 @@ public class DiagnosisRelatedGroup implements java.io.Serializable {
 	public String getType() {
 		return type;
 	}
-	@OneToMany
-	public List<Provider> getProviders() {
-		return providers;
-	}
+//	@OneToMany
+//	public List<Provider> getProviders() {
+//		return providers;
+//	}
 	public BigDecimal getTotalDischarge() {
 		return totalDischarge;
 	}
@@ -55,9 +56,9 @@ public class DiagnosisRelatedGroup implements java.io.Serializable {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public void setProviders(List<Provider> providers) {
-		this.providers = providers;
-	}
+//	public void setProviders(List<Provider> providers) {
+//		this.providers = providers;
+//	}
 	public void setTotalDischarge(BigDecimal totalDischarge) {
 		this.totalDischarge = totalDischarge;
 	}
@@ -67,10 +68,12 @@ public class DiagnosisRelatedGroup implements java.io.Serializable {
 	public void setAverageTotalPayments(BigDecimal averageTotalPayments) {
 		this.averageTotalPayments = averageTotalPayments;
 	}
-	public Long getProviderId() {
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="providerId")
+	public Provider getProvider() {
 		return providerId;
 	}
-	public void setProviderId(Long providerId) {
+	public void setProvider(Provider providerId) {
 		this.providerId = providerId;
 	}
 	@Override

@@ -251,14 +251,13 @@
 			<properties>
 
 				<jdbc.driver.class>com.mysql.jdbc.Driver</jdbc.driver.class>
-				<jdbc.connection.url>jdbc:mysql://mangrovesolutions.net:3306/hosprice</jdbc.connection.url>
+				<jdbc.connection.url>jdbc:mysql://menoetius:3306/hosprice</jdbc.connection.url>
 				<jdbc.connection.user>hosprice</jdbc.connection.user>
 				<jdbc.connection.pass>northern</jdbc.connection.pass>
 				<hibernate.dialect>org.hibernate.dialect.MySQLDialect</hibernate.dialect>
-				<hibernate.hbm2dll>update</hibernate.hbm2dll>
-				<hibernate.hbm2dll.importfiles>/import.sql</hibernate.hbm2dll.importfiles>
+				<hibernate.hbm2dll>validate</hibernate.hbm2dll>
 				<hibernate.hbm2dll.extractor>org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor</hibernate.hbm2dll.extractor>
-				<hibernate.show_sql>true</hibernate.show_sql>
+				<hibernate.show_sql>false</hibernate.show_sql>
 				<hibernate.generate_statistics>false</hibernate.generate_statistics>
 			</properties>
 

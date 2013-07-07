@@ -6,8 +6,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -19,6 +21,7 @@ import org.astrum.common.domain.Address;
 import org.astrum.common.domain.DiagnosisRelatedGroup;
 import org.astrum.common.domain.Provider;
 import org.astrum.common.domain.Region;
+import org.astrum.common.repository.DiagnosisRelatedGroupRepository;
 import org.astrum.common.repository.ProviderRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,13 +52,25 @@ public class TransferJob {
 	public static Integer AVERAGE_COVERED_CHARGES = 9;
 	public static Integer AVERAGE_TOTAL_PAYMENTS = 10;
 	
-	public static Integer MAX_ROWS = 65500;  //max allowed by poi library
+	public static Integer MAX_ROWS = 43066 + STARTING_DATA_ROW;  //max allowed by poi library
 	
 	@Inject
 	ProviderRepository providerRepository;
 	
+	@Inject
+	DiagnosisRelatedGroupRepository diagnosisRelatedGroupRepository;
+	
+	
 	@Test
+	public void blankTest(){
+		logger.info("junit test");
+	}
+	/**
+	 * This was for ETL to populate data with excel sheet, do not run this test!
+	 * @throws IOException
+	 */
 	public void runTransfer() throws IOException{
+		Date start = new Date();
 		logger.info("Kick the tires and light the fires...");
 		File file = new File("D:\\opt\\projects\\hosprice\\opt\\Medicare_Provider_Charge_2007.xls");
 		
@@ -63,12 +78,18 @@ public class TransferJob {
 		POIFSFileSystem poifs = new POIFSFileSystem(fs);
 		HSSFWorkbook workbook = new HSSFWorkbook(poifs);
 		
-		Sheet sheet  = workbook.getSheet("Medicare_Provider_Charge_Inpati");
+		Sheet sheet  = workbook.getSheet("Medicare_Provider_Charge_03");
 		
 		Row firstRow = sheet.getRow(1);
 		logger.info("MY ROW: "+firstRow.getCell(0));
 		Provider[] list = new Provider[MAX_ROWS + 1];
 		HashMap<Long, Provider> providerMap = new HashMap<Long,Provider>();
+		//retrieve all providers
+		List<Provider> providersFromDb = providerRepository.findAll();
+		for(Provider dbp: providersFromDb){
+			providerMap.put(dbp.getLegacyId(), dbp);
+		}
+		
 		int foundNewInstance = 0;
 		int mergingNewInstance = 0;
 		for(int i = STARTING_DATA_ROW;i <= MAX_ROWS; i++){
@@ -112,10 +133,12 @@ public class TransferJob {
 			Double averageTotalPayments = r.getCell(AVERAGE_TOTAL_PAYMENTS).getNumericCellValue();
 			Double totalDischarges = r.getCell(TOTAL_DISCHARGES).getNumericCellValue();
 			
+			
 			drg.setType(drgDefinition);
 			drg.setAverageCoveredCharges(new BigDecimal(averageCoveredCharges));
 			drg.setAverageTotalPayments(new BigDecimal(averageTotalPayments));
 			drg.setTotalDischarge(new BigDecimal(totalDischarges));
+			
 			
 			p.setAddress(a);
 			p.getDiagnosisRelatedGroups().add(drg);
@@ -138,6 +161,10 @@ public class TransferJob {
 		for(Provider p: c){
 			logger.info(p.toString());
 			providerRepository.save(p);
+			for(DiagnosisRelatedGroup ddd: p.getDiagnosisRelatedGroups()){
+				ddd.setProvider(p);
+				diagnosisRelatedGroupRepository.save(ddd);
+			}
 		}
 		logger.info("size of collection: "+c.size());
 		logger.info("mergedENtities: "+mergingNewInstance);
@@ -154,6 +181,15 @@ public class TransferJob {
 		List<Provider> unlimitedProviders = providerRepository.findAll();
 		logger.info("example provider: "+unlimitedProviders.get(0));
 		logger.info("total number of providers in database: "+unlimitedProviders.size());
-		
+		Date end = new Date();
+		Long millis = end.getTime() - start.getTime();
+		String myTime = String.format("%d min, %d sec", 
+			    TimeUnit.MILLISECONDS.toMinutes(millis),
+			    TimeUnit.MILLISECONDS.toSeconds(millis) - 
+			    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis))
+			);
+		logger.info("Total time is: "+myTime);
 	}
+
+
 }

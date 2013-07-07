@@ -66,5 +66,21 @@ public class ProviderServiceTest {
 //		logger.info("===========================================");
 	}
 	
+	@Test
+	public void searchTest(){
+		
+		String qZipcode = "";
+		String qCity = null;
+		String qState = "AL";
+		
+		List<Provider> providers = providerService.getProviderByParams(qZipcode, qCity, qState);
+		assertTrue (providers.size()  > 0);
+		logger.info("SIZE: "+providers.size());
+		for(Provider p: providers){
+			logger.info(p.toString());
+		}
+		
+	}
+	
 	
 }

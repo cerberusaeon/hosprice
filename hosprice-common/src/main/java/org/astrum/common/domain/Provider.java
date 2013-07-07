@@ -40,7 +40,7 @@ public class Provider implements java.io.Serializable {
 	public Long getLegacyId() {
 		return legacyId;
 	}
-	@OneToMany(mappedBy="providerId",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="provider",fetch=FetchType.EAGER, cascade={CascadeType.ALL})
 	public List<DiagnosisRelatedGroup> getDiagnosisRelatedGroups() {
 		return diagnosisRelatedGroups;
 	}
