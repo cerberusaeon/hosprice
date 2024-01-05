@@ -1,7 +1,8 @@
 repo_name: ohimors/hosprice
 report_id: 0cfd05c209239eee72d9a52741811d4c
+version: 0.1
 repo_type: Public
-timestamp: '2023-11-13T00:21:40+00:00'
+timestamp: '2024-01-05T08:47:10+00:00'
 requested_by: sohimor
 provider: github
 branch: master
@@ -15,6 +16,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/6727/css.png
+  detection_source_url: https://github.com/ohimors/hosprice
   detection_source: Repo Metadata
 - name: Java
   description: A concurrent, class-based, object-oriented, language specifically designed
@@ -25,6 +27,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/995/K85ZWV2F.png
+  detection_source_url: https://github.com/ohimors/hosprice
   detection_source: Repo Metadata
 - name: JavaScript
   description: Lightweight, interpreted, object-oriented language with first-class
@@ -35,6 +38,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/1209/javascript.jpeg
+  detection_source_url: https://github.com/ohimors/hosprice
   detection_source: Repo Metadata
 - name: SQL
   description: It is a domain-specific language used in programming
@@ -44,7 +48,8 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/2271/default_068d33483bba6b81ee13fbd4dc7aab9780896a54.png
-  detection_source: hosprice-common/src/main/resources/import_data.sql
+  detection_source_url: https://github.com/ohimors/hosprice/blob/master/hosprice-common/src/main/resources/import.sql
+  detection_source: hosprice-common/src/main/resources/import.sql
   last_updated_by: Stephen Ohimor
   last_updated_on: 2013-05-10 14:27:23.000000000 Z
 - name: Jersey
@@ -55,7 +60,8 @@ tools:
   category: Languages & Frameworks
   sub_category: Microframeworks (Backend)
   image_url: https://img.stackshare.io/service/1757/E6ajYzZW_400x400.png
-  detection_source: hosprice-web/pom.xml
+  detection_source_url: https://github.com/ohimors/hosprice/blob/master/hosprice-services/pom.xml
+  detection_source: hosprice-services/pom.xml
   last_updated_by: Stephen Ohimor
   last_updated_on: 2013-05-10 14:27:23.000000000 Z
 - name: HSQLDB
@@ -66,6 +72,7 @@ tools:
   category: Data Stores
   sub_category: Databases
   image_url: https://img.stackshare.io/service/6958/yQ4763oZ_400x400.jpg
+  detection_source_url: https://github.com/ohimors/hosprice/blob/master/hosprice-common/pom.xml
   detection_source: hosprice-common/pom.xml
   last_updated_by: Stephen Ohimor
   last_updated_on: 2013-05-10 14:27:23.000000000 Z
@@ -77,6 +84,7 @@ tools:
   category: Data Stores
   sub_category: Object Relational Mapper (ORM)
   image_url: https://img.stackshare.io/service/1756/1uNl_IZX.png
+  detection_source_url: https://github.com/ohimors/hosprice/blob/master/hosprice-common/pom.xml
   detection_source: hosprice-common/pom.xml
   last_updated_by: Stephen Ohimor
   last_updated_on: 2013-05-10 14:27:23.000000000 Z
@@ -88,6 +96,7 @@ tools:
   category: Data Stores
   sub_category: Databases
   image_url: https://img.stackshare.io/service/1025/logo-mysql-170x170.png
+  detection_source_url: https://github.com/ohimors/hosprice/blob/master/hosprice-common/pom.xml
   detection_source: hosprice-common/pom.xml
   last_updated_by: Stephen Ohimor
   last_updated_on: 2013-05-10 14:27:23.000000000 Z
@@ -101,7 +110,8 @@ tools:
   category: Data Stores
   sub_category: Database Tools
   image_url: https://img.stackshare.io/service/7624/IG6D4Ro2_400x400.png
-  detection_source: hosprice-web/pom.xml
+  detection_source_url: https://github.com/ohimors/hosprice/blob/master/hosprice-common/pom.xml
+  detection_source: hosprice-common/pom.xml
   last_updated_by: Stephen Ohimor
   last_updated_on: 2013-05-10 14:27:23.000000000 Z
 - name: Git
@@ -112,6 +122,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Version Control System
   image_url: https://img.stackshare.io/service/1046/git.png
+  detection_source_url: https://github.com/ohimors/hosprice
   detection_source: Repo Metadata
 - name: JUnit
   description: A programmer-oriented testing framework for Java
@@ -122,7 +133,8 @@ tools:
   category: Build, Test, Deploy
   sub_category: Testing Frameworks
   image_url: https://img.stackshare.io/service/2020/874086.png
-  detection_source: hosprice-web/pom.xml
+  detection_source_url: https://github.com/ohimors/hosprice/blob/master/hosprice-common/pom.xml
+  detection_source: hosprice-common/pom.xml
   last_updated_by: Stephen Ohimor
   last_updated_on: 2013-05-10 14:27:23.000000000 Z
 - name: Log4j
@@ -134,7 +146,8 @@ tools:
   category: Monitoring
   sub_category: Logging Tools
   image_url: https://img.stackshare.io/service/2804/Coralogix-log4j-integration.jpg
-  detection_source: hosprice-web/pom.xml
+  detection_source_url: https://github.com/ohimors/hosprice/blob/master/hosprice-common/pom.xml
+  detection_source: hosprice-common/pom.xml
   last_updated_by: Stephen Ohimor
   last_updated_on: 2013-05-10 14:27:23.000000000 Z
 - name: SLF4J
@@ -145,6 +158,7 @@ tools:
   category: Monitoring
   sub_category: Log Management
   image_url: https://img.stackshare.io/service/2805/05518ecaa42841e834421e9d6987b04f_400x400.png
-  detection_source: hosprice-web/pom.xml
+  detection_source_url: https://github.com/ohimors/hosprice/blob/master/hosprice-common/pom.xml
+  detection_source: hosprice-common/pom.xml
   last_updated_by: Stephen Ohimor
   last_updated_on: 2013-05-10 14:27:23.000000000 Z
