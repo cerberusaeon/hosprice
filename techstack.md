@@ -4,16 +4,16 @@
 ohimors/hosprice is built on the following main stack:
 
 - [Java](https://www.java.com) – Languages
-- [MySQL](http://www.mysql.com) – Databases
 - [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) – Languages
-- [Hibernate](http://hibernate.org/) – Object Relational Mapper (ORM)
-- [Jersey](https://jersey.java.net/) – Microframeworks (Backend)
-- [JUnit](http://junit.org/) – Testing Frameworks
 - [SQL](https://en.wikipedia.org/wiki/SQL) – Languages
+- [Jersey](https://jersey.java.net/) – Microframeworks (Backend)
+- [HSQLDB](http://hsqldb.org) – Databases
+- [Hibernate](http://hibernate.org/) – Object Relational Mapper (ORM)
+- [MySQL](http://www.mysql.com) – Databases
+- [Spring Data](https://spring.io/projects/spring-data) – Database Tools
+- [JUnit](http://junit.org/) – Testing Frameworks
 - [Log4j](https://logging.apache.org/log4j/2.x/) – Logging Tools
 - [SLF4J](http://slf4j.org/) – Log Management
-- [HSQLDB](http://hsqldb.org) – Databases
-- [Spring Data](https://spring.io/projects/spring-data) – Database Tools
 
 Full tech stack [here](/techstack.md)
 
@@ -24,16 +24,16 @@ Full tech stack [here](/techstack.md)
 ohimors/hosprice is built on the following main stack:
 
 - <img width='25' height='25' src='https://img.stackshare.io/service/995/K85ZWV2F.png' alt='Java'/> [Java](https://www.java.com) – Languages
-- <img width='25' height='25' src='https://img.stackshare.io/service/1025/logo-mysql-170x170.png' alt='MySQL'/> [MySQL](http://www.mysql.com) – Databases
 - <img width='25' height='25' src='https://img.stackshare.io/service/1209/javascript.jpeg' alt='JavaScript'/> [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) – Languages
-- <img width='25' height='25' src='https://img.stackshare.io/service/1756/1uNl_IZX.png' alt='Hibernate'/> [Hibernate](http://hibernate.org/) – Object Relational Mapper (ORM)
-- <img width='25' height='25' src='https://img.stackshare.io/service/1757/E6ajYzZW_400x400.png' alt='Jersey'/> [Jersey](https://jersey.java.net/) – Microframeworks (Backend)
-- <img width='25' height='25' src='https://img.stackshare.io/service/2020/874086.png' alt='JUnit'/> [JUnit](http://junit.org/) – Testing Frameworks
 - <img width='25' height='25' src='https://img.stackshare.io/service/2271/default_068d33483bba6b81ee13fbd4dc7aab9780896a54.png' alt='SQL'/> [SQL](https://en.wikipedia.org/wiki/SQL) – Languages
+- <img width='25' height='25' src='https://img.stackshare.io/service/1757/E6ajYzZW_400x400.png' alt='Jersey'/> [Jersey](https://jersey.java.net/) – Microframeworks (Backend)
+- <img width='25' height='25' src='https://img.stackshare.io/service/6958/yQ4763oZ_400x400.jpg' alt='HSQLDB'/> [HSQLDB](http://hsqldb.org) – Databases
+- <img width='25' height='25' src='https://img.stackshare.io/service/1756/1uNl_IZX.png' alt='Hibernate'/> [Hibernate](http://hibernate.org/) – Object Relational Mapper (ORM)
+- <img width='25' height='25' src='https://img.stackshare.io/service/1025/logo-mysql-170x170.png' alt='MySQL'/> [MySQL](http://www.mysql.com) – Databases
+- <img width='25' height='25' src='https://img.stackshare.io/service/7624/IG6D4Ro2_400x400.png' alt='Spring Data'/> [Spring Data](https://spring.io/projects/spring-data) – Database Tools
+- <img width='25' height='25' src='https://img.stackshare.io/service/2020/874086.png' alt='JUnit'/> [JUnit](http://junit.org/) – Testing Frameworks
 - <img width='25' height='25' src='https://img.stackshare.io/service/2804/Coralogix-log4j-integration.jpg' alt='Log4j'/> [Log4j](https://logging.apache.org/log4j/2.x/) – Logging Tools
 - <img width='25' height='25' src='https://img.stackshare.io/service/2805/05518ecaa42841e834421e9d6987b04f_400x400.png' alt='SLF4J'/> [SLF4J](http://slf4j.org/) – Log Management
-- <img width='25' height='25' src='https://img.stackshare.io/service/6958/yQ4763oZ_400x400.jpg' alt='HSQLDB'/> [HSQLDB](http://hsqldb.org) – Databases
-- <img width='25' height='25' src='https://img.stackshare.io/service/7624/IG6D4Ro2_400x400.png' alt='Spring Data'/> [Spring Data](https://spring.io/projects/spring-data) – Database Tools
 
 Full tech stack [here](/techstack.md)
 
@@ -44,7 +44,7 @@ Full tech stack [here](/techstack.md)
 # Tech Stack File
 ![](https://img.stackshare.io/repo.svg "repo") [ohimors/hosprice](https://github.com/ohimors/hosprice)![](https://img.stackshare.io/public_badge.svg "public")
 <br/><br/>
-|13<br/>Tools used|01/05/24 <br/>Report generated|
+|13<br/>Tools used|02/29/24 <br/>Report generated|
 |------|------|
 </div>
 
